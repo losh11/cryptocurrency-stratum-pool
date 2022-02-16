@@ -11,13 +11,8 @@
         "poolserver",
         "bitcoin",
         "litecoin",
-        "zcash",
-        "veruscoin",
         "sha256",
-        "scrypt",
-        "equihash",
-        "verushash",
-        "x16rv2"
+        "scrypt"
     ],
     "homepage": "https://github.com/AoD-Technologies/cryptocurrency-stratum-pool",
     "bugs": {
@@ -44,9 +39,7 @@
         "cryptocurrency-addr": "git://github.com/Invader444/node-cryptocurrency-addr.git",
         "equihashverify": "git://github.com/AoD-Technologies/equihashverify.git",
         "merkle-bitcoin": "^1.0.2",
-        "multi-hashing": "git://github.com/Invader444/node-multi-hashing.git",
-        "promise": "^8.0.3",
-        "verushash": "git://github.com/AoD-Technologies/verushash-node.git"
+        "promise": "^8.0.3"
     },
     "engines": {
         "node": ">=12.10.3"
