@@ -5,30 +5,28 @@
     "keywords": [
         "stratum",
         "mining",
-        "staking",
         "pool",
         "server",
         "poolserver",
-        "bitcoin",
         "litecoin",
-        "sha256",
         "scrypt"
     ],
-    "homepage": "https://github.com/AoD-Technologies/cryptocurrency-stratum-pool",
+    "homepage": "https://github.com/losh11/cryptocurrency-stratum-pool",
     "bugs": {
-        "url": "https://github.com/AoD-Technologies/cryptocurrency-stratum-pool/issues"
+        "url": "https://github.com/losh11/cryptocurrency-stratum-pool/issues"
     },
     "license": "GPL-3.0",
-    "author": "Jonathan Horowitz",
+    "author": "Loshan",
     "contributors": [
         "Matthew Little",
         "vekexasia",
-        "TheSeven"
+        "TheSeven",
+        "Jonathon Horowitz"
     ],
     "main": "lib/index.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/AoD-Technologies/cryptocurrency-stratum-pool.git"
+        "url": "https://github.com/losh11/cryptocurrency-stratum-pool.git"
     },
     "dependencies": {
         "async": "^3.1.0",

@@ -4,18 +4,10 @@ pools, each with their own daemon and stratum port :)
 #### Notice
 This is a module for Node.js that will do nothing on its own. Unless you're a Node.js developer who would like to
 handle stratum authentication and raw share data then this module will not be of use to you. For a full featured portal
-that uses this module, see [Cryptocurrency Pool Server](//github.com/AoD-Technologies/cryptocurrency-pool-server). It
+that uses this module, see [ltcpool](https://github.com/losh11/ltcpool). It
 handles payments, website front-end, database layer, mutli-coin/pool support, auto-switching miners between coins/pools,
-etc.. The portal also has an [MPOS](//github.com/MPOS/php-mpos) compatibility mode so that the it can function as
-a drop-in-replacement for [python-stratum-mining](//github.com/Crypto-Expert/stratum-mining).
-
-[![NPM](https://nodei.co/npm/cryptocurrency-stratum-pool.png?downloads=true&stars=true)](https://nodei.co/npm/cryptocurrency-stratum-pool/)
-
-#### Why
-This server was built to be more efficient and easier to setup, maintain and scale than existing stratum poolservers
-which are written in python. Compared to the spaghetti state of the latest
-[stratum-mining python server](//github.com/Crypto-Expert/stratum-mining/), this software should also have a
-lower barrier to entry for other developers to fork and add features or fix bugs.
+etc.. The portal also has an [MPOS](https://github.com/MPOS/php-mpos) compatibility mode so that the it can function as
+a drop-in-replacement for [python-stratum-mining](https://github.com/Crypto-Expert/stratum-mining).
 
 
 Features
@@ -29,33 +21,18 @@ Features
 * Process share submissions
 * Session managing for purging DDoS/flood initiated zombie workers
 * Auto ban IPs that are flooding with invalid shares
-* __PoW__ (proof-of-work) & __PoS__ (proof-of-stake) support
+* __PoW__ (proof-of-work)
 * Transaction messages support
 * Vardiff (variable difficulty / share limiter)
 * When started with a coin deamon that hasn't finished syncing to the network it shows the blockchain download progress and initializes once synced
 
 #### Hashing algorithms supported:
-* ✓ __SHA256__ (Bitcoin, Freicoin, Peercoin/PPCoin, Terracoin, etc..)
 * ✓ __Scrypt__ (Litecoin, Dogecoin, Feathercoin, etc..)
-* ✓ __Scrypt-Jane__ (YaCoin, CopperBars, Pennies, Tickets, etc..)
-* ✓ __Scrypt-N__ (Vertcoin [VTC])
-* ✓ __Quark__ (Quarkcoin [QRK])
-* ✓ __X11__ (Darkcoin [DRK], Hirocoin, Limecoin)
-* ✓ __X13__ (MaruCoin, BoostCoin)
-* ✓ __NIST5__ (Talkcoin)
-* ✓ __Keccak__ (Maxcoin [MAX], HelixCoin, CryptoMeth, Galleon, 365coin, Slothcoin, BitcointalkCoin)
-* ✓ __Skein__ (Skeincoin [SKC])
-* ✓ __Groestl__ (Groestlcoin [GRS])
-* ✓ __Blake__ (Blakecoin [BLC])
-* ✓ __Fugue__ (Fuguecoin [FC])
-* ✓ __Qubit__ (Qubitcoin [Q2C], Myriadcoin [MYR])
-* ✓ __SHAvite-3__ (INKcoin [INK])
-* ✓ __Sha1__ (Sha1coin [SHA], Yaycoin [YAY])
 
 Requirements
 ------------
 * node v12.10.3+
-* coin daemon (preferably one with a relatively updated API and not some crapcoin :p)
+* litecoind
 
 Example Usage
 -------------
@@ -63,16 +40,13 @@ Example Usage
 #### Install as a node module by cloning repository
 
 ```bash
-git clone https://github.com/AoD-Technologies/cryptocurrency-stratum-pool node_modules/cryptocurrency-stratum-pool
+git clone https://github.com/losh11/cryptocurrency-stratum-pool node_modules/cryptocurrency-stratum-pool
 npm update
 ```
 
 #### Module usage
 
 Create the configuration for your coin:
-
-Possible options for `algorithm`: *sha256, scrypt, scrypt-jane, scrypt-n, quark, x11, keccak, blake,
-skein, groestl, fugue, shavite3, hefty1, qubit, or sha1*.
 
 ```javascript
 var myCoin = {
@@ -92,55 +66,6 @@ var myCoin = {
      "peerMagicTestnet": "fcc1b7dc" //optional
 };
 ```
-
-If you are using the `scrypt-jane` algorithm there are additional configurations:
-
-```javascript
-var myCoin = {
-    "name": "Freecoin",
-    "symbol": "FEC",
-    "algorithm": "scrypt-jane",
-    "chainStartTime": 1375801200, //defaults to 1367991200 (YACoin) if not used
-    "nMin": 6, //defaults to 4 if not used
-    "nMax": 32 //defaults to 30 if not used
-};
-```
-
-If you are using the `scrypt-n` algorithm there is an additional configuration:
-```javascript
-var myCoin = {
-    "name": "Execoin",
-    "symbol": "EXE",
-    "algorithm": "scrypt-n",
-    /* This defaults to Vertcoin's timetable if not used. It is required for scrypt-n coins that
-       have modified their N-factor timetable to be different than Vertcoin's. */
-    "timeTable": {
-        "2048": 1390959880,
-        "4096": 1438295269,
-        "8192": 1485630658,
-        "16384": 1532966047,
-        "32768": 1580301436,
-        "65536": 1627636825,
-        "131072": 1674972214,
-        "262144": 1722307603
-    }
-};
-```
-
-If you are using the `keccak` algorithm there are additional configurations *(The rare `normalHashing` keccak coins
-such as Copperlark and eCoin don't appear to work yet - only the popular ones like Maxcoin are)*:
-```javascript
-var myCoin = {
-    "name": "eCoin",
-    "symbol": "ECN",
-    "algorithm": "keccak",
-
-    /* This is not required and set to false by default. Some coins such as Copperlark and eCoin
-       require it to be set to true. Maxcoin and most others are false. */
-    "normalHashing": true
-};
-```
-
 
 Create and start new pool with configuration options and authentication function
 
@@ -336,35 +261,10 @@ Start pool
 pool.start();
 ```
 
-
 Credits
 -------
-* [Invader444](//github.com/Invader444) - lead developer
+* [Invader444](//github.com/Invader444) - upstream fork developer
 * [The NOMP developers](//github.com/zone117x/node-stratum-pool#credits)
-
-Donations
----------
-To support development of this project feel free to donate :)
-
-* AUR: `AStZjnHVZeeMu6qSefmfFf2hcTrw1D4PTV`
-* BTC: `1HTNmSPrPzWDXiQKHqGGmwxvWpo92861We`
-* BCH: `qz37lsgu585sthyvj03wdnylzj697utezs09sqr8s6`
-* BOOT: `RKrEC2DN85DEAVGnPKFMT2kwBop7W8SgtH`
-* BSV: `16pw6eWNQ543djFGPFhWTupKn6DAFybsYj`
-* BTCV: `3Cc2odLwAPMb8in6DtzYcaz7VteMHCdCWS`
-* DASH: `XptCKDUpStArP6WriH1EqUFkG7X4EB5QVb`
-* DGB: `DNvszcyDbQbSJ6aFGXCc4adSXoXjtFSXYs`
-* DOGE: `DEiAhRD6ACGeEHPAhKT4W4WiUN6Q85BK83`
-* LTC: `LQg8JcRgHUST9D2pD6fXXSCRsF9jD3GdWK`
-* LCC: `CJRx4ps1B8f3fByneiAg7oycEMtTtbFkG2`
-* LCNT: `Lfe93Y8mC1ueKpHtWw2Kp6APoLQs3GpGpF`
-* RVN: `RMTcqUJnzSTMZW825eP77yDxhcCuW3xVyy`
-* SHND: `SZjpJRp5rmD83NmaStVJpn4NkfmwM52Jnw`
-* VTC: `3KxFSn2hw7G61QyheKLYR5sffR6ErKJNys`
-* VRSC: `RRb1GeiDcbAGMJQrckCcFSnKj9rZDUVJ4y`
-* XVG: `D5Xzq6edmskQBVHUZuzvCbuAg1f8gPU2bo`
-* ZEN: `znhHi2eiRAQhzekktTqdjDBCeb3L2QkuHjf`
-* ZER: `t1R3enmEZj8rVsUG19sznLSkCRFFj4vEcVM`
 
 License
 -------
